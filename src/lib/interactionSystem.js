@@ -1,30 +1,25 @@
+//  GRAPHIC ENGINE
 const GE = require('./graphicEngine');
 
+//  LOAD MENU ON SCREEN
+GE.setMenu(document.querySelector(".screen"));
 
+// --------------------------------
+//  CLICKABLE POKEBALL TOP & BOTTOM
+// --------------------------------
 document.querySelector(".top").addEventListener("click", () => {
   document.querySelector(".frame").classList.toggle('open');
   document.querySelector(".frame").classList.add('fadeIn');
-
-  // if(document.querySelector(".slideInDown")){
-  //   document.querySelector(".pokeball.bottom").classList.toggle('slideInUp');
-  // }else{
-    document.querySelector(".pokeball.bottom").classList.toggle('slideInDown');
-  // }
+  document.querySelector(".pokeball.bottom").classList.toggle('slideInDown');
 });
 
 document.querySelector(".bottom").addEventListener("click", () => { document.location.href="/"; });
+// --------------------------------
+// --------------------------------
+// --------------------------------
 
 
-document.querySelectorAll(".screen > ul > li").forEach(li => {
-  li.addEventListener("click", e => {
-    const url = `/${e.target.textContent}`;
-    fetch(url, {mode: 'no-cors'}).then(r=>r.text()).then(res=>{
-      document.querySelector('.screen').innerHTML = res;
-    });
-  });
-});
-
-
+//  TEST
 // document.querySelector(".button").addEventListener("click", ()=>{
 //   document.querySelector(".pokedex").classList.add('animated','slideOutLeft');
 // });

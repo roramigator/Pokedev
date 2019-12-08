@@ -3,6 +3,7 @@ const IS = require('./lib/interactionSystem');
 
 
 
+
 // api request
 // fetch("https://pokeapi.co/api/v2/pokemon/").then(r=>r.json()).then(res=>{
 //   console.log(res);
