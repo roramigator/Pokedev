@@ -5,8 +5,8 @@ Tool for indexing data from the [PokeAPI](http://pokeapi.co/), built as a client
 
 Authors
 ---
-Carl Wirth: Developer
-Roberto Morado: Developer
+- Carl Wirth: Developer
+- Roberto Morado: Developer
 
 Credits
 ---
