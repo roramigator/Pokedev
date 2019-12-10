@@ -34,9 +34,19 @@ const loadMenu = (menu) => {
           IS.select([".right",".left"]).forEach(btn => {
             btn.addEventListener("click", e => {
               if(e.target.classList.value === 'right'){
+                if(IS.select(".info.open")){
+                  IS.select(".info").classList.remove('fadeInLeft');
+                  IS.select(".info").classList.add('fadeOutLeft');
+                  setTimeout(() => IS.select(".info").classList.toggle('open'), 180);
+                }
                 if(current < 809 ) current++;
               }
               if(e.target.classList.value === 'left'){
+                if(IS.select(".info.open")){
+                  IS.select(".info").classList.remove('fadeInLeft');
+                  IS.select(".info").classList.add('fadeOutLeft');
+                  setTimeout(() => IS.select(".info").classList.toggle('open'), 180);
+                }
                 if(current > 1) current--;
               }
               RF.requestPokemon(current).then(res => {
@@ -44,6 +54,34 @@ const loadMenu = (menu) => {
               });
             }); // - end eventListener
           }); // - end forEach
+          IS.select(".details").addEventListener("click", () => {
+
+            RF.requestPokemon(current).then(res => {
+              const stats = res.stats.reverse().reduce((html, val) => {
+                html += `<p>${val.stat.name}<progress value="${val.base_stat}" max="140" style="float: right;"></progress></p>`;
+                return html;
+              },"");
+              const type = res.types.reverse().reduce((html, val) => {
+                html += `<span>${val.type.name}</span>`;
+                return html;
+              },"");
+              IS.select(".info").innerHTML = `
+                <h3>${type}</h3>
+                ${stats}
+              `;
+            });
+
+
+            if(IS.select(".info.open")){
+              IS.select(".info").classList.remove('fadeInLeft');
+              IS.select(".info").classList.add('fadeOutLeft');
+              setTimeout(() => IS.select(".info").classList.toggle('open'), 180);
+            }else{
+              IS.select(".info").classList.toggle('open');
+              IS.select(".info").classList.remove('fadeOutLeft');
+              IS.select(".info").classList.add('animated', 'fadeInLeft', 'faster');
+            }
+          });
         } // -  end if
       }); // -  end fetch
     }); // -  end eventListener

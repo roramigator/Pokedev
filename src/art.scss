@@ -9,6 +9,26 @@ body {
   font-family: 'Solway', serif;
 }
 
+.info {
+  position: absolute;
+  width: 20em;
+  height: 46.8%;
+  right: 22.3%;
+  top: 14.5em;
+
+  border-top-right-radius: 0.3em;
+  border-bottom-right-radius: 0.3em;
+  border: 0.6em solid #414141;
+  border-left: 0;
+  display: none;
+  background: rgba(0,0,0,0.4);
+  z-index: 100;
+
+  &.open{
+    display: block;
+  }
+}
+
 .pokeball {
   border: 1em solid #414141;
   border-radius: 3%;
