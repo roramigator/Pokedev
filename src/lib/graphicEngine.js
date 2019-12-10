@@ -1,5 +1,6 @@
 //  INTERACTION SYSTEM
 const IS = require("./interactionSystem");
+const RF = require("./requestFilter");
 
 //  GLOBAL VARIABLES
 let current = 1;
@@ -24,60 +25,38 @@ const loadMenu = (menu) => {
   menu = menu.childNodes;
   menu.forEach((li, id) => {
     li.addEventListener("click", e => {
-      const url = `/${e.target.textContent}`;
-      //  send request to REQUEST FILTER
-      fetch(url, {mode: 'no-cors'}).then(prep=>prep.text()).then(response=>{
-
-
-        IS.select('.screen').innerHTML = response;
-        if(id === 0){   //  :)
-          fetch(`https://pokeapi.co/api/v2/pokemon/${current}`).then(prep => prep.json()).then(res => {
+      RF.requestState(`/${e.target.textContent}`).then(content => {
+        IS.select('.screen').innerHTML = content;
+        if(id === 0){
+          RF.requestPokemon(current).then(res => {
             loadPokemon(res, IS.select(".pokedex"));
           });
           IS.select([".right",".left"]).forEach(btn => {
-            console.log('here');
-            console.log({btn })
             btn.addEventListener("click", e => {
               if(e.target.classList.value === 'right'){
-                console.log('left');
-                current++;
-                fetch(`https://pokeapi.co/api/v2/pokemon/${current}`).then(prep => prep.json()).then(res => {
-                  loadPokemon(res, IS.select(".pokedex"));
-                  console.log(res.id);
-                });
+                if(current < 809 ) current++;
               }
               if(e.target.classList.value === 'left'){
-                console.log('left');
                 if(current > 1) current--;
-                fetch(`https://pokeapi.co/api/v2/pokemon/${current}`).then(prep => prep.json()).then(res => {
-                  loadPokemon(res, IS.select(".pokedex"));
-                });
               }
-            });
-          });
-
+              RF.requestPokemon(current).then(res => {
+                loadPokemon(res, IS.select(".pokedex"));
+              });
+            }); // - end eventListener
+          }); // - end forEach
         } // -  end if
       }); // -  end fetch
     }); // -  end eventListener
   }); // -  end forEach
 };  // -  end loadMenu
 
-
-//  this is request filter
-const getImage = (number) => {
-  if(number < 10) number = '00'+number;
-  else if(number < 100) number = '0'+number;
-  return `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${number}.png`
-};
-//  ---
-
+//  LOAD POKEMONS ON CONTAINER
 const loadPokemon = (data, container) => {
-  const img = getImage(data.id);
-  console.log({container, img});
+  const pokemon = RF.requestImage(data.id);
   container.innerHTML = `
   <div>
-    <img src="${img}" width="90%">
-    <span>${data.id}</span>
+    <img src="${pokemon.img}" width="90%">
+    <span>${pokemon.number}</span>
   </div>
   <p>${data.name}</p>
   `;

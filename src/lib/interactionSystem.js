@@ -1,4 +1,3 @@
-//  ---
 //  SELECT ELEMENT FUNCTION
 const select = (str) => {
   if(typeof(str) === 'string') return document.querySelector(str);
@@ -9,7 +8,6 @@ const select = (str) => {
 };
 //  ---
 
-// ---
 //  CLICKABLE POKEBALL TOP & BOTTOM
 select(".top").addEventListener("click", () => {
   const frame = select(".frame");
