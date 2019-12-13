@@ -82,6 +82,10 @@ const loadMenu = (menu) => {
             });
 
 
+            // LOAD EVERYTHING
+            //
+
+
             if(IS.select(".info.open")){
               IS.select(".info").classList.remove('fadeInLeft');
               IS.select(".info").classList.add('fadeOutLeft');
