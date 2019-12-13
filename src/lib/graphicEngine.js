@@ -54,21 +54,31 @@ const loadMenu = (menu) => {
               });
             }); // - end eventListener
           }); // - end forEach
-          IS.select(".details").addEventListener("click", () => {
+          IS.select(".center").addEventListener("click", () => {
 
             RF.requestPokemon(current).then(res => {
               const stats = res.stats.reverse().reduce((html, val) => {
-                html += `<p>${val.stat.name}<progress value="${val.base_stat}" max="140" style="float: right;"></progress></p>`;
+                html += `<p>${val.stat.name}<progress value="${val.base_stat}" max="140"></progress></p>`;
                 return html;
               },"");
               const type = res.types.reverse().reduce((html, val) => {
-                html += `<span>${val.type.name}</span>`;
+                html += `<span class="${val.type.name}">${val.type.name}</span>`;
                 return html;
               },"");
-              IS.select(".info").innerHTML = `
-                <h3>${type}</h3>
-                ${stats}
-              `;
+              fetch(res.species.url).then(prep=>prep.json()).then(specie=>{
+                const description = specie.flavor_text_entries.reduce((arr,txt) => {
+                  if(txt.language.name === "en")
+                    arr.push(txt.flavor_text);
+                  return arr;
+                },[]);
+                IS.select(".info").innerHTML = `
+                  <div style="text-align:center;">${type}</div>
+                  <br><br><br>
+                  ${stats}
+                  <br>
+                  <p>${description[0]}</p>
+                `;
+              });
             });
 
 

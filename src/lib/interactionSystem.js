@@ -14,6 +14,12 @@ select(".top").addEventListener("click", () => {
   frame.classList.toggle("open");
   frame.classList.add("fadeIn");
   select(".bottom").classList.toggle("slideInDown");
+
+  if(select(".info.open")){
+    select(".info").classList.remove('fadeInLeft');
+    select(".info").classList.toggle('open');
+  }
+  
 });
 
 select(".bottom").addEventListener("click", () => { document.location.href="/"; });
