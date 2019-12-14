@@ -8,6 +8,28 @@ const select = (str) => {
 };
 //  ---
 
+//  ANIMATIONS  **need refactoring
+const info = action => {
+  if(action){
+    if(select(".info.open")){
+      select(".info").classList.remove('fadeInLeft');
+      select(".info").classList.add('fadeOutLeft');
+      setTimeout(() => select(".info").classList.toggle('open'), 180);
+    }else{
+      select(".info").classList.toggle('open');
+      select(".info").classList.remove('fadeOutLeft');
+      select(".info").classList.add('animated', 'fadeInLeft', 'faster');
+    }
+  }else{
+    if(select(".info.open")){
+      select(".info").classList.remove('fadeInLeft');
+      select(".info").classList.add('fadeOutLeft');
+      setTimeout(() => select(".info").classList.toggle('open'), 180);
+    }
+  }
+};
+//  ---
+
 //  CLICKABLE POKEBALL TOP & BOTTOM
 select(".top").addEventListener("click", () => {
   const frame = select(".frame");
@@ -19,7 +41,7 @@ select(".top").addEventListener("click", () => {
     select(".info").classList.remove('fadeInLeft');
     select(".info").classList.toggle('open');
   }
-  
+
 });
 
 select(".bottom").addEventListener("click", () => { document.location.href="/"; });
@@ -27,5 +49,6 @@ select(".bottom").addEventListener("click", () => { document.location.href="/"; 
 
 //  EXPORTS
 module.exports = {
-    select
+    select,
+    info
 };
