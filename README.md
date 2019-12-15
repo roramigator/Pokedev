@@ -1,4 +1,4 @@
-Pokedev ![under development](https://img.shields.io/badge/coverage-5%25-red)
+Pokedev ![under development](https://img.shields.io/badge/coverage-85%25-green)
 ====
 
 Tool for indexing data from the [PokeAPI](http://pokeapi.co/), built as a client-side Javascript webapp.
