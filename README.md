@@ -3,16 +3,8 @@ Pokedev ![under development](https://img.shields.io/badge/coverage-60%25-yellow)
 
 Tool for indexing data from the [PokeAPI](http://pokeapi.co/), built as a client-side Javascript webapp.
 
-Authors
----
-- Elijah Brown: Developer
-- Carl Wirth: Developer
-- Roberto Morado: Developer
-
 Project Requirements
 ---
-
-You must meet these requirements in order to pass.
 
 * [x] Your project must make one asynchronous call per person in your group.
 * [x] You must use an aysnchronous library or API that we covered in class (Fetch, Axios and/or Async & Await).
@@ -27,6 +19,12 @@ You must meet these requirements in order to pass.
 * [ ] You must handle user input somewhere within the project. (For example, handle a search engine or display text that the user typed somewhere on the page).
 * [x] Limit your use of global variables. You can do this by organizing yours code.
 * [x] You must create a new repository for this project. Everyone in the group should be contributors.
+
+Authors
+---
+- Elijah Brown: Developer
+- Carl Wirth: Developer
+- Roberto Morado: Developer
 
 Credits
 ---
