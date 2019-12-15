@@ -1,4 +1,4 @@
-//  INTERACTION SYSTEM
+//  IMPORTS
 const IS = require("./interactionSystem");
 const RF = require("./requestFilter");
 
@@ -28,22 +28,38 @@ const loadMenu = (menu) => {
       RF.requestState(`/${e.target.textContent}`).then(content => {
         IS.select('.screen').innerHTML = content;
         if(id === 0){
-          RF.requestPokemon(current).then(res => {
-            loadPokemon(res, IS.select(".pokedex"));
+          RF.requestPokemon(current).then(res => {                    //  explore observer pattern
+            loadPokemon(res, IS.select(".pokedex"));                  //
           });
-          IS.select([".right",".left"]).forEach(btn => {
-            btn.addEventListener("click", e => {
-              if(e.target.classList.value === 'right'){
-                if(current < 809 ) current++;
-              }
-              if(e.target.classList.value === 'left'){
-                if(current > 1) current--;
-              }
-              RF.requestPokemon(current).then(res => {
-                loadPokemon(res, IS.select(".pokedex"));
-              });
-            }); // - end eventListener
-          }); // - end forEach
+          const uiButtons = [".right",".left",".center",".more"];     //
+          IS.select(uiButtons).forEach(btn => {    //
+            btn.addEventListener("click", e => {                      //
+              if(e.target.classList.value === 'right'){               //
+                IS.info(false);                                       //
+                if(current < 809 ) current++;                         //
+              }                                                       //
+              if(e.target.classList.value === 'left'){                //
+                IS.info(false);                                       //
+                if(current > 1) current--;                            //
+              }                                                       //
+              RF.requestPokemon(current).then(res => {                //
+                loadPokemon(res, IS.select(".pokedex"));              //
+              });                                                     //
+              if(e.target.classList.value === 'center'){              //
+                RF.requestPokemon(current).then(res => {              //
+                  loadInfo(res, IS.select(".info"));                  //
+                });                                                   //
+                IS.info(true);                                        //
+              }                                                       //
+              // if(e.target.classList.value === 'more'){
+              //   IS.select(".data").classList.toggle('open');
+              //   RF.requestPokemon(current).then(res => {
+              //     //  SHOW POKEMON DATA
+              //   });
+              // }
+
+            }); // - end eventListener                                //
+          }); // - end forEach                                        //  ---
         } // -  end if
       }); // -  end fetch
     }); // -  end eventListener
@@ -61,6 +77,33 @@ const loadPokemon = (data, container) => {
   <p>${data.name}</p>
   `;
 };  // - end loadPokemon
+
+//  LOAD POKEMON INFO
+const loadInfo = (data, container) => {
+  const stats = data.stats.reverse().reduce((html, val) => {
+    html += `<p>${val.stat.name}<progress value="${val.base_stat}" max="140"></progress></p>`;
+    return html;
+  },"");
+  const type = data.types.reverse().reduce((html, val) => {
+    html += `<span class="${val.type.name}">${val.type.name}</span>`;
+    return html;
+  },"");
+  fetch(data.species.url).then(prep=>prep.json()).then(specie=>{
+    const description = specie.flavor_text_entries.reduce((arr,txt) => {
+      if(txt.language.name === "en")
+        arr.push(txt.flavor_text);
+      return arr;
+    },[]);
+    container.innerHTML = `
+      <div style="text-align:center;">${type}</div>
+      <br><br><br>
+      ${stats}
+      <br>
+      <p>${description[0]}</p>
+    `;
+  });
+};
+//  ---
 
 
 //  EXPORTS
