@@ -51,12 +51,12 @@ const loadMenu = (menu) => {
                 });                                                   //
                 IS.info(true);                                        //
               }                                                       //
-              if(e.target.classList.value === 'more'){
-                IS.select(".data").classList.toggle('open');
-                RF.requestPokemon(current).then(res => {
-                  IS.select(".data").innerHTML = res;
-                });
-              }
+              // if(e.target.classList.value === 'more'){
+              //   IS.select(".data").classList.toggle('open');
+              //   RF.requestPokemon(current).then(res => {
+              //     //  SHOW POKEMON DATA
+              //   });
+              // }
 
             }); // - end eventListener                                //
           }); // - end forEach                                        //  ---
