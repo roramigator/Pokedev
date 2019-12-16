@@ -1,13 +1,15 @@
 //  IMPORTS
 const IS = require("./interactionSystem");
 const RF = require("./requestFilter");
+const DR = require("./dataRefactoring");
 
 //  GLOBAL VARIABLES
 let current = 1;
 
 //  CREATE MENU ELEMENTS
 const setMenu = (container) => {
-  const menu = [ "pokedex", "trainer", "credits" ];
+  container = IS.select(container);
+  const menu = [ "pokedex", "favorites", "credits" ];
   const ul = document.createElement('ul');
   menu.forEach((item, id) => {
     const li = document.createElement('li');
@@ -26,13 +28,14 @@ const loadMenu = (menu) => {
   menu.forEach((li, id) => {
     li.addEventListener("click", e => {
       RF.requestState(`/${e.target.textContent}`).then(content => {
+        console.log(content);
         IS.select('.screen').innerHTML = content;
         if(id === 0){
           RF.requestPokemon(current).then(res => {                    //  explore observer pattern
             loadPokemon(res, IS.select(".pokedex"));                  //
           });
           const uiButtons = [".right",".left",".center",".more"];     //
-          IS.select(uiButtons).forEach(btn => {    //
+          IS.select(uiButtons).forEach(btn => {                       //
             btn.addEventListener("click", e => {                      //
               if(e.target.classList.value === 'right'){               //
                 IS.info(false);                                       //
@@ -51,12 +54,29 @@ const loadMenu = (menu) => {
                 });                                                   //
                 IS.info(true);                                        //
               }                                                       //
-              // if(e.target.classList.value === 'more'){
-              //   IS.select(".data").classList.toggle('open');
-              //   RF.requestPokemon(current).then(res => {
-              //     //  SHOW POKEMON DATA
-              //   });
-              // }
+              if(e.target.classList.value === 'more'){
+                IS.select(".data").classList.toggle('open');
+                IS.select(".pokedex > div > img").setAttribute("width", "200%");
+                RF.requestPokemon(current).then(res => {
+                  const data = DR.minifyJSON(res);
+                  const abilities = data.abilities.reduce((html, ability) => {
+                    html += `<span>${ability}</span>`;
+                    return html;
+                  }, "");
+                  const moves = data.moves.reduce((html, move) => {
+                    html += `<span>${move.name}</span>`;
+                    return html;
+                  }, "");
+
+                  IS.select(".data").innerHTML = `
+                  <div>
+                    <p><span>${data.weight}g</span><span>${data.height}cm</span></p>
+                    <p>${abilities}</p>
+                    <p>${moves}</p>
+                  </div>
+                  `;
+                });
+              }
 
             }); // - end eventListener                                //
           }); // - end forEach                                        //  ---

@@ -14,9 +14,12 @@ const requestPokemon = data => {
 const requestState = state => {
   return new Promise((resolve, reject) => {
     fetch(state, {mode: 'no-cors'}).then(prep => prep.text()).then(res => {
-      res
-        ? resolve(res)
-        : reject();
+      try{
+        resolve(res);
+      }catch(error){
+        reject(error);
+      }
+
     });
   });
 };
