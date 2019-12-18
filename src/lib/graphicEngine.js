@@ -28,7 +28,6 @@ const loadMenu = (menu) => {
   menu.forEach((li, id) => {
     li.addEventListener("click", e => {
       RF.requestState(`/${e.target.textContent}`).then(content => {
-        console.log(content);
         IS.select('.screen').innerHTML = content;
         if(id === 0){
           RF.requestPokemon(current).then(res => {                    //  explore observer pattern
@@ -38,11 +37,13 @@ const loadMenu = (menu) => {
           IS.select(uiButtons).forEach(btn => {                       //
             btn.addEventListener("click", e => {                      //
               if(e.target.classList.value === 'right'){               //
-                IS.info(false);                                       //
+                IS.info(false);
+                IS.data();                                       //
                 if(current < 809 ) current++;                         //
               }                                                       //
               if(e.target.classList.value === 'left'){                //
-                IS.info(false);                                       //
+                IS.info(false);
+                IS.data();                                       //
                 if(current > 1) current--;                            //
               }                                                       //
               RF.requestPokemon(current).then(res => {                //
@@ -56,7 +57,6 @@ const loadMenu = (menu) => {
               }                                                       //
               if(e.target.classList.value === 'more'){
                 IS.select(".data").classList.toggle('open');
-                IS.select(".pokedex > div > img").setAttribute("width", "200%");
                 RF.requestPokemon(current).then(res => {
                   const data = DR.minifyJSON(res);
                   const abilities = data.abilities.reduce((html, ability) => {
@@ -68,13 +68,44 @@ const loadMenu = (menu) => {
                     return html;
                   }, "");
 
-                  IS.select(".data").innerHTML = `
-                  <div>
-                    <p><span>${data.weight}g</span><span>${data.height}cm</span></p>
-                    <p>${abilities}</p>
-                    <p>${moves}</p>
-                  </div>
-                  `;
+                  const species = {
+                    url: data.specie
+                  };
+
+                  //  CONCEPT
+                  // {
+                  //   data: 'specie || evolution || form'
+                  //   url: 'https://...'
+                  // }
+                  //  SEND DATA TO RF, RF CALL DR, DR RETURN TO RF, RF RETURN DATA
+
+                  RF.requestPokemon(species).then(res => {
+                    const happiness = res.base_happiness;
+                    const capture = res.capture_rate;
+                    const genera = res.genera.reduce((html, val)=>{
+                      if(val.language.name === 'en')
+                        html = (val.genus);
+                      return html;
+                    },"");
+                    console.log(genera);
+
+                    const evo = { url: res.evolution_chain.url };
+                    RF.requestPokemon(evo).then(res => {
+
+                      console.log(res);
+                      //const evoInfo = DR.evolution(res); <-- HAAAS TO
+
+                      IS.select(".data").innerHTML = `
+                        <div>
+                          <p>${genera}</p>
+                          <p><span>weight: ${data.weight}g</span><span>height: ${data.height}cm</span></p>
+                          <p><span>happiness: ${happiness}%</span><span>capture rate: ${capture}%</span></p>
+                          <p>${abilities}</p>
+                          <p class="moves">${moves}</p>
+                        </div>
+                      `;
+                    });
+                  });
                 });
               }
 

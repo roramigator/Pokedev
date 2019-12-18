@@ -69,6 +69,7 @@ $size: 12em;
 body {
   background: #ebf0f6;
   font-family: 'Solway', serif;
+  overflow: hidden;
 }
 
 /* width */
@@ -110,6 +111,20 @@ body {
   &.open{
     display: block;
   }
+
+  div {
+    padding: 1em;
+    span{
+      margin: 0 0.5em;
+    }
+    .moves {
+      text-align: center;
+      font-size: 3em;
+      span {
+        display: block;
+      }
+    }
+  }
 }
 
 .info {
@@ -132,24 +147,6 @@ body {
 
   &.open{
     display: block;
-  }
-
-  .more{
-    cursor: pointer;
-    color: #414141;
-    font-size: 1em;
-    text-align: center;
-    border: none;
-    background: white;
-    padding: 0.5em;
-    border-radius: 0.3em;
-    transition: all 0.5s ease;
-    z-index: 10;
-
-    &:hover{
-      color: white;
-      background: #46b5d1;
-    }
   }
 
   div{

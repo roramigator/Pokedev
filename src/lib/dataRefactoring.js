@@ -20,6 +20,7 @@ const minifyJSON = json => {
   // stats?
   // encounters?
 
+
   return {
     id: json.id,
     height: json.height,
@@ -28,7 +29,7 @@ const minifyJSON = json => {
     specie: json.species.url,
     abilities: abilities,
     moves: moves
-  }
+  };
 };
 
 

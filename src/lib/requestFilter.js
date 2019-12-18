@@ -1,12 +1,22 @@
 const requestPokemon = data => {
+  let url = `https://pokeapi.co/api/v2/pokemon/${data}`;
+
+  if(typeof(data) === "object"){
+    url = `${data.url}`;
+  }
+
+  // {
+  //   id: 1,
+  //   url: 'https://...'
+  // }
+
   return new Promise((resolve, reject) => {
-    if(typeof(data) === "object")
-      data = data.id;
-    const url = `https://pokeapi.co/api/v2/pokemon/${data}`;
     fetch(url).then(prep => prep.json()).then(res => {
-        res
-          ? resolve(res)
-          : reject();
+      try{
+        resolve(res);
+      }catch(error){
+        reject(error);
+      }
     }); // - end fetch
   }); // - end Promise
 }; // - end requestPokemon
