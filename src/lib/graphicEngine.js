@@ -147,10 +147,9 @@ const loadInfo = (data, container) => {
     },[]);
     container.innerHTML = `
       <div style="text-align:center;">${type}</div>
-      <br><br><br>
-      ${stats}
       <br>
-      <p>${description[0]}</p>
+      ${stats}
+      <p class="flavor">${description[0]}</p>
     `;
   });
 };

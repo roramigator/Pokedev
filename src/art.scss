@@ -119,7 +119,7 @@ body {
     }
     .moves {
       text-align: center;
-      font-size: 3em;
+      font-size: 1.5em;
       span {
         display: block;
       }
@@ -131,8 +131,8 @@ body {
   padding: 1.5em;
   position: absolute;
   width: 20em;
-  height: 47.8%;
-  right: 19.7%;
+  height: 45.6%;
+  right: 19.9%;
   top: 14.5em;
 
   color: #f6f6f6;
@@ -147,6 +147,11 @@ body {
 
   &.open{
     display: block;
+  }
+
+  .flavor {
+    font-size: 1.5em;
+    text-align: justify;
   }
 
   div{
