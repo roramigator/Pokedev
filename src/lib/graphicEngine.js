@@ -87,13 +87,17 @@ const loadMenu = (menu) => {
                         html = (val.genus);
                       return html;
                     },"");
-                    console.log(genera);
-
                     const evo = { url: res.evolution_chain.url };
                     RF.requestPokemon(evo).then(res => {
 
-                      console.log(res);
-                      //const evoInfo = DR.evolution(res); <-- HAAAS TO
+                      // console.log(res);
+                      // console.log(res.chain.evolves_to[0]);
+                      // console.log(res);
+                      //const evoInfo = DR.minifyEvo(res); //<-- HAAAS TO
+                      // console.log(res.chain.evolves_to[0].evolves_to[0]);
+                      //
+
+                      //console.log(evoInfo);
 
                       IS.select(".data").innerHTML = `
                         <div>
@@ -129,7 +133,7 @@ const loadPokemon = (data, container) => {
   `;
 };  // - end loadPokemon
 
-//  LOAD POKEMON INFO
+//  LOAD POKEMON INFO -- NEEDS REFACTORING
 const loadInfo = (data, container) => {
   const stats = data.stats.reverse().reduce((html, val) => {
     html += `<p>${val.stat.name}<progress value="${val.base_stat}" max="140"></progress></p>`;
