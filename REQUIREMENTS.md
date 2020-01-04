@@ -1,3 +1,5 @@
+# Expected requirements
+
 * [x] Your project must make one asynchronous call per person in your group.
 * [x] You must use an aysnchronous library or API that we covered in class.
 * [x] You will need at least one API that will return images somewhere within the results. You must display images on the page from this API call.
