@@ -32,15 +32,7 @@ const minifyJSON = json => {
 };
 
 const minifyEvo = json => { // NEEDS REFACTORING
-  // console.log(json);
-  const chain = json.chain;
-  const base = chain.species;
-  let evo = [];
-
-  evo.push(base);
-  evo.push(chain.evolves_to[0].species);
-  evo.push(chain.evolves_to[0].evolves_to[0].species);
-  return evo;
+  //  MINIMIZE JSON
 };
 
 

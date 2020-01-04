@@ -29,13 +29,21 @@ const loadMenu = (menu) => {
     li.addEventListener("click", e => {
       RF.requestState(`/${e.target.textContent}`).then(content => {
         IS.select('.screen').innerHTML = content;
-        if(id === 0){
+        if(id === 1){ //  Favorites
+          RF.requestPokemon(localStorage.getItem('FAV')).then(res => {                    //  explore observer pattern
+            loadPokemon(res, IS.select(".favorites"));                  //
+          });
+        }
+        if(id === 0){ //  Pokedex
           RF.requestPokemon(current).then(res => {                    //  explore observer pattern
             loadPokemon(res, IS.select(".pokedex"));                  //
           });
-          const uiButtons = [".right",".left",".center",".more"];     //
+          const uiButtons = [".right",".left",".center",".more",".star"];     //
           IS.select(uiButtons).forEach(btn => {                       //
-            btn.addEventListener("click", e => {                      //
+            btn.addEventListener("click", e => {
+              if(e.target.classList.value === 'star'){
+                localStorage.setItem('FAV', current);
+              }                      //
               if(e.target.classList.value === 'right'){               //
                 IS.info(false);
                 IS.data();                                       //
@@ -90,14 +98,7 @@ const loadMenu = (menu) => {
                     const evo = { url: res.evolution_chain.url };
                     RF.requestPokemon(evo).then(res => {
 
-                      // console.log(res);
-                      // console.log(res.chain.evolves_to[0]);
-                      // console.log(res);
-                      //const evoInfo = DR.minifyEvo(res); //<-- HAAAS TO
-                      // console.log(res.chain.evolves_to[0].evolves_to[0]);
-                      //
-
-                      //console.log(evoInfo);
+                      //  GET EVOLUTIONS
 
                       IS.select(".data").innerHTML = `
                         <div>

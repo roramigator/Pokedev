@@ -278,6 +278,8 @@ body {
     overflow: hidden;
 
     div{
+      text-align: center;
+      padding: 0;
       span{
         .left, .right{
           cursor: pointer;
@@ -327,12 +329,51 @@ body {
           color: #414141;
           font-size: 1em;
           position: relative;
-          display: block;
+          float: left;
+          display: inline-block;
           margin: 0 auto;
           margin-bottom: 1em;
           text-align: center;
           border: none;
-          padding: 0.5em;
+          padding: 0.5em 2em;
+          border-radius: 0.3em;
+          transition: all 0.5s ease;
+          z-index: 100;
+
+          &:hover{
+            color: white;
+            background: #52d681;
+          }
+        }
+
+        .star{
+          cursor: pointer;
+          display: inline-block;
+          position: relative;
+          top: -0.4em;
+          color: #888;
+          font-size: 4em;
+          transition: all 0.5s ease;
+          z-index: 101;
+
+          &:hover{
+            color: #f0cf85;
+            // #ffcc00 -> selected
+          }
+        }
+
+        .query{
+          cursor: pointer;
+          color: #414141;
+          font-size: 1em;
+          float: right;
+          position: relative;
+          display: inline-block;
+          margin: 0 auto;
+          margin-bottom: 1em;
+          text-align: center;
+          border: none;
+          padding: 0.5em 2em;
           border-radius: 0.3em;
           transition: all 0.5s ease;
           z-index: 100;
@@ -362,6 +403,24 @@ body {
         &:hover{
           background: #f0d879;
         }
+      }
+    }
+
+
+    .favorites{
+      text-align: center;
+      div{
+        span{
+          color: #414141;
+          font-size: 1em;
+          &:before{
+            content: '#';
+          }
+        }
+      }
+      p{
+        color: #414141;
+        font-size: 2.5em;
       }
     }
 
@@ -395,7 +454,7 @@ body {
         }
       }
       p{
-        font-size: 3em;
+        font-size: 2em;
         color: #414141;
         text-align: center;
         font-size: 4em;
@@ -425,6 +484,13 @@ body {
     }
 
 
+    .favorites {
+      p {
+        text-align: center;
+        font-size: 2em;
+        color: white;
+      }
+    }
   }
 }
 
