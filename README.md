@@ -37,13 +37,13 @@ As long as the server is running, you don't need to build to visualize.  Neverth
 
 
 
-Authors
----
+## Authors
 - Elijah Brown: Developer
 - Carl Wirth: Developer
 - Roberto Morado: Developer
 
+## Notes
+**Pokedev** was developed as a final project for the Javascript Fundamentals class, this met the requirements set; see the full list [here](REQUIREMENTS.md)
 
-Credits
----
+## Credits
 [PokeAPI](http://pokeapi.co/): Pokémon data.
