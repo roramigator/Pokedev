@@ -4,7 +4,9 @@ Tool for indexing data regarding the various species of Pokemon™. This project
 These instructions will allow you to get a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 ### Prerequisites
 Start by cloning the following repository on your local machine.  
+
 ```git clone https://github.com/roramigator/Pokedev```  
+
 This will create a copy of the project on your current path.
 ### Installing
 At this point you would have a directory, *Pokedev*, in your current path.  Continue by changing directories into it...
