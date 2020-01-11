@@ -38,12 +38,17 @@ const loadMenu = (menu) => {
           RF.requestPokemon(current).then(res => {                    //  explore observer pattern
             loadPokemon(res, IS.select(".pokedex"));                  //
           });
-          const uiButtons = [".right",".left",".center",".more",".star"];     //
+          const uiButtons = [".right",".left",".center",".more",".star",".fav"];     //
           IS.select(uiButtons).forEach(btn => {                       //
             btn.addEventListener("click", e => {
               if(e.target.classList.value === 'star'){
                 localStorage.setItem('FAV', current);
               }                      //
+              if(e.target.classList.value === 'fav'){
+                RF.requestPokemon(localStorage.getItem('FAV')).then(res => {                    //  explore observer pattern
+                  loadPokemon(res, IS.select(".favorites"));                  //
+                });
+              }
               if(e.target.classList.value === 'right'){               //
                 IS.info(false);
                 IS.data();                                       //
