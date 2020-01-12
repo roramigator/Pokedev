@@ -30,44 +30,43 @@ const loadMenu = (menu) => {
       RF.requestState(`/${e.target.textContent}`).then(content => {
         IS.select('.screen').innerHTML = content;
         if(id === 1){ //  Favorites
-          RF.requestPokemon(localStorage.getItem('FAV')).then(res => {                    //  explore observer pattern
-            loadPokemon(res, IS.select(".favorites"));                  //
+          RF.requestPokemon(localStorage.getItem('FAV')).then(res => {
+            loadPokemon(res, IS.select(".favorites"));
           });
         }
         if(id === 0){ //  Pokedex
-          RF.requestPokemon(current).then(res => {                    //  explore observer pattern
-            loadPokemon(res, IS.select(".pokedex"));                  //
+          RF.requestPokemon(current).then(res => {
+            loadPokemon(res, IS.select(".pokedex"));
           });
-          const uiButtons = [".right",".left",".center",".more",".star",".fav"];     //
-          IS.select(uiButtons).forEach(btn => {                       //
+          const uiButtons = [".right",".left",".center",".more",".star",".fav"];
+          IS.select(uiButtons).forEach(btn => {
             btn.addEventListener("click", e => {
               if(e.target.classList.value === 'star'){
                 localStorage.setItem('FAV', current);
-              }                      //
-              if(e.target.classList.value === 'fav'){
-                RF.requestPokemon(localStorage.getItem('FAV')).then(res => {                    //  explore observer pattern
-                  loadPokemon(res, IS.select(".favorites"));                  //
-                });
+                
               }
-              if(e.target.classList.value === 'right'){               //
+              if(e.target.classList.value === 'fav'){
+                document.location.href="/";
+              }
+              if(e.target.classList.value === 'right'){
                 IS.info(false);
-                IS.data();                                       //
-                if(current < 809 ) current++;                         //
-              }                                                       //
-              if(e.target.classList.value === 'left'){                //
+                IS.data();
+                if(current < 809 ) current++;
+              }
+              if(e.target.classList.value === 'left'){
                 IS.info(false);
-                IS.data();                                       //
-                if(current > 1) current--;                            //
-              }                                                       //
-              RF.requestPokemon(current).then(res => {                //
-                loadPokemon(res, IS.select(".pokedex"));              //
-              });                                                     //
-              if(e.target.classList.value === 'center'){              //
-                RF.requestPokemon(current).then(res => {              //
-                  loadInfo(res, IS.select(".info"));                  //
-                });                                                   //
-                IS.info(true);                                        //
-              }                                                       //
+                IS.data();
+                if(current > 1) current--;
+              }
+              RF.requestPokemon(current).then(res => {
+                loadPokemon(res, IS.select(".pokedex"));
+              });
+              if(e.target.classList.value === 'center'){
+                RF.requestPokemon(current).then(res => {
+                  loadInfo(res, IS.select(".info"));
+                });
+                IS.info(true);
+              }
               if(e.target.classList.value === 'more'){
                 IS.select(".data").classList.toggle('open');
                 RF.requestPokemon(current).then(res => {
@@ -85,13 +84,6 @@ const loadMenu = (menu) => {
                     url: data.specie
                   };
 
-                  //  CONCEPT
-                  // {
-                  //   data: 'specie || evolution || form'
-                  //   url: 'https://...'
-                  // }
-                  //  SEND DATA TO RF, RF CALL DR, DR RETURN TO RF, RF RETURN DATA
-
                   RF.requestPokemon(species).then(res => {
                     const happiness = res.base_happiness;
                     const capture = res.capture_rate;
@@ -102,8 +94,6 @@ const loadMenu = (menu) => {
                     },"");
                     const evo = { url: res.evolution_chain.url };
                     RF.requestPokemon(evo).then(res => {
-
-                      //  GET EVOLUTIONS
 
                       IS.select(".data").innerHTML = `
                         <div>
@@ -119,8 +109,8 @@ const loadMenu = (menu) => {
                 });
               }
 
-            }); // - end eventListener                                //
-          }); // - end forEach                                        //  ---
+            }); // - end eventListener
+          }); // - end forEach
         } // -  end if
       }); // -  end fetch
     }); // -  end eventListener
@@ -139,7 +129,7 @@ const loadPokemon = (data, container) => {
   `;
 };  // - end loadPokemon
 
-//  LOAD POKEMON INFO -- NEEDS REFACTORING
+//  LOAD POKEMON INFO
 const loadInfo = (data, container) => {
   const stats = data.stats.reverse().reduce((html, val) => {
     html += `<p>${val.stat.name}<progress value="${val.base_stat}" max="140"></progress></p>`;
@@ -163,7 +153,7 @@ const loadInfo = (data, container) => {
     `;
   });
 };
-//  ---
+//  - end loadInfo
 
 
 //  EXPORTS

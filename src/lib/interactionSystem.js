@@ -8,7 +8,7 @@ const select = (str) => {
 };
 //  ---
 
-//  ANIMATIONS  **need refactoring
+//  ANIMATIONS
 const info = action => {
   if(action){
     if(select(".info.open")){
