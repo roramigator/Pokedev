@@ -6,6 +6,15 @@ const DR = require("./dataRefactoring");
 //  GLOBAL VARIABLES
 let current = 1;
 
+const checkFav = () => {
+  const favoritePokemon = localStorage.getItem('FAV');
+  if(favoritePokemon == current){
+    IS.select(".star").style.color = '#ffcc00';
+  }else {
+    IS.select(".star").style.color = '#888';
+  }
+};
+
 //  CREATE MENU ELEMENTS
 const setMenu = (container) => {
   container = IS.select(container);
@@ -43,7 +52,7 @@ const loadMenu = (menu) => {
             btn.addEventListener("click", e => {
               if(e.target.classList.value === 'star'){
                 localStorage.setItem('FAV', current);
-                
+                //e.target.classList.value = 'starActive'; // -------------------
               }
               if(e.target.classList.value === 'fav'){
                 document.location.href="/";
@@ -119,6 +128,9 @@ const loadMenu = (menu) => {
 
 //  LOAD POKEMONS ON CONTAINER
 const loadPokemon = (data, container) => {
+  if(container.classList.value === "pokedex"){
+    checkFav();
+  }
   const pokemon = RF.requestImage(data.id);
   container.innerHTML = `
   <div>
