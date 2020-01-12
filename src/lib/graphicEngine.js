@@ -104,15 +104,46 @@ const loadMenu = (menu) => {
                     const evo = { url: res.evolution_chain.url };
                     RF.requestPokemon(evo).then(res => {
 
-                      IS.select(".data").innerHTML = `
-                        <div>
-                          <p>${genera}</p>
-                          <p><span>weight: ${data.weight}g</span><span>height: ${data.height}cm</span></p>
-                          <p><span>happiness: ${happiness}%</span><span>capture rate: ${capture}%</span></p>
-                          <p>${abilities}</p>
-                          <p class="moves">${moves}</p>
-                        </div>
-                      `;
+
+                      let evolution_chain = [];
+                      evolution_chain.push(res.chain.species.url);
+                      res.chain.evolves_to.forEach(v => {
+                        if(v)
+                          evolution_chain.push(v.species.url)
+                        if(v.evolves_to[0])
+                          evolution_chain.push(v.evolves_to[0].species.url);
+                      });
+                      // console.log(evolution_chain);
+                      const evolution_html = [];
+                      evolution_chain.forEach(url => {
+                        // html += "hello";
+                        RF.requestPokemon({url:url}).then(res => {
+                          // console.log(res.id);
+                          const poke = RF.requestImage(res.id);
+                          // console.log(poke.img);
+                          evolution_html.push(`<img src="${poke.img}" width="20%">`);
+                          // console.log(html);
+                        });
+                      }, []);
+
+                      setTimeout(()=>{
+                        const img_html = evolution_html.reduce((html, img)=>{
+                          html += `${img}`;
+                          return html;
+                        });
+
+                        IS.select(".data").innerHTML = `
+                          <div>
+                            <p>${genera}</p>
+                            <p><span>weight: ${data.weight}g</span><span>height: ${data.height}cm</span></p>
+                            <p><span>happiness: ${happiness}%</span><span>capture rate: ${capture}%</span></p>
+                            <p>${abilities}</p>
+                            <p class="moves">${moves}</p>
+                            <div>${img_html}</div>
+                          </div>
+                        `;
+                      }, 300);
+
                     });
                   });
                 });
