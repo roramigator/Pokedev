@@ -9,9 +9,9 @@ let current = 1;
 const checkFav = () => {
   const favoritePokemon = localStorage.getItem('FAV');
   if(favoritePokemon == current){
-    IS.select(".star").style.color = '#ffcc00';
+    IS.select(".star").classList.add("starActive");
   }else {
-    IS.select(".star").style.color = '#888';
+    IS.select(".star").classList.remove("starActive");
   }
 };
 
