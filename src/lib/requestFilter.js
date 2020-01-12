@@ -5,11 +5,6 @@ const requestPokemon = data => {
     url = `${data.url}`;
   }
 
-  // {
-  //   id: 1,
-  //   url: 'https://...'
-  // }
-
   return new Promise((resolve, reject) => {
     fetch(url).then(prep => prep.json()).then(res => {
       try{

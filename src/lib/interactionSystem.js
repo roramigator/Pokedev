@@ -8,13 +8,18 @@ const select = (str) => {
 };
 //  ---
 
-//  ANIMATIONS  **need refactoring
+const closeInfo = () => {
+  select(".info").classList.remove('fadeInLeft');
+  select(".info").classList.add('fadeOutLeft');
+  setTimeout(() => select(".info").classList.toggle('open'), 180);
+};
+
+
+//  ANIMATIONS
 const info = action => {
   if(action){
     if(select(".info.open")){
-      select(".info").classList.remove('fadeInLeft');
-      select(".info").classList.add('fadeOutLeft');
-      setTimeout(() => select(".info").classList.toggle('open'), 180);
+      closeInfo();
     }else{
       select(".info").classList.toggle('open');
       select(".info").classList.remove('fadeOutLeft');
@@ -22,9 +27,7 @@ const info = action => {
     }
   }else{
     if(select(".info.open")){
-      select(".info").classList.remove('fadeInLeft');
-      select(".info").classList.add('fadeOutLeft');
-      setTimeout(() => select(".info").classList.toggle('open'), 180);
+      closeInfo();
     }
   }
 };

@@ -17,9 +17,6 @@ const minifyJSON = json => {
     return abilities;
   },[]);
 
-  // stats?
-  // encounters?
-
   return {
     id: json.id,
     height: json.height,
@@ -31,13 +28,8 @@ const minifyJSON = json => {
   };
 };
 
-const minifyEvo = json => { // NEEDS REFACTORING
-  //  MINIMIZE JSON
-};
-
 
 //  EXPORTS
 module.exports = {
     minifyJSON,
-    minifyEvo
 };
