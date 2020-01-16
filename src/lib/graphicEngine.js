@@ -139,6 +139,7 @@ const loadMenu = (menu) => {
                             <p><span>happiness: ${happiness}%</span><span>capture rate: ${capture}%</span></p>
                             <p>${abilities}</p>
                             <p class="moves">${moves}</p>
+                            <p>evolution chain:</p>
                             <div>${img_html}</div>
                           </div>
                         `;
